@@ -22,8 +22,9 @@ class DateCellTableViewController: UITableViewController {
     var dataArray: [[String: AnyObject]] = []
     lazy var dateFormatter : DateFormatter = {
         let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+//        dateFormatter.dateFormat = "dd/MM/yyyy"
         return dateFormatter
     }()
     
@@ -111,7 +112,7 @@ class DateCellTableViewController: UITableViewController {
         var cellID = dateCellID
         
         if indexPathHasPicker(indexPath: indexPath as NSIndexPath) {
-            cellID = datePickerCellID     // the current/opened date picker cell
+            cellID = datePickerCellID
         }
         
         cell = tableView.dequeueReusableCell(withIdentifier: cellID)
@@ -208,9 +209,13 @@ class DateCellTableViewController: UITableViewController {
         var itemData = dataArray[targetedCellIndexPath!.row]
         itemData[dateKey] = targetedDatePicker.date as AnyObject
         dataArray[targetedCellIndexPath!.row] = itemData
-       
+        
         cell?.detailTextLabel?.text = dateFormatter.string(from: targetedDatePicker.date)
+        
+//        print("Valeur pour la date de départ : \(dataArray[0][dateKey])")
+//        print("Valeur pour la date de fin : \(dataArray[1][dateKey])")
     }
+
 
 }
 
